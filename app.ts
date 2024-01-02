@@ -1,15 +1,16 @@
 import { Month, WeekDay } from './enums';
 
 // inputs
-let year = 2024;
-let month: Month = Month.Jun;
-let restDays: WeekDay[] = [ WeekDay.Sun ];
-let targetMonthDistance = 300;
+const year = 2024;
+const month: Month = Month.Jul;
+const restDays: WeekDay[] = [ WeekDay.Sun ];
+const targetMonthDistance = 300;
+const targetWeekDistance = null;
 
 // long run config
-let longRunEnabled = true;
-let longRunDay: WeekDay = WeekDay.Sat;
-let longRunRate: number = 25; // % of the week
+const longRunEnabled = true;
+const longRunDay: WeekDay = WeekDay.Sat;
+const longRunRate: number = 25; // % of the week
 
 // formulas
 const totalDaysOfMonth = new Date(year, month + 1, 0).getDate();
@@ -21,7 +22,7 @@ for (let day = 1; day <= totalDaysOfMonth; day++)
         trainingDays++;
 
 const weekTrainingDays = 7 - restDays.length;
-const weekDistance = targetMonthDistance / trainingDays * weekTrainingDays;
+const weekDistance = targetWeekDistance ? targetWeekDistance : targetMonthDistance / trainingDays * weekTrainingDays;
 const longRunDistance = longRunEnabled ? Math.floor(weekDistance / 100 * longRunRate) : 0;
 const longRunDistanceDecimal = longRunEnabled ? weekDistance / 100 * longRunRate : 0;
 const defaultDayDistance = Math.floor((weekDistance - longRunDistanceDecimal) / (weekTrainingDays - 1));
@@ -57,17 +58,12 @@ for (let day = 1; day <= totalDaysOfMonth; day++) {
     }
 
     totalFinalDistance+= dayDistance;
-
-    if ((day === totalDaysOfMonth && !restDays.includes(date.getDay())) || (day + 1 === totalDaysOfMonth && restDays.includes(new Date(year, month, day + 1).getDay()))) {
-        if (targetMonthDistance - totalFinalDistance > 0) {
-            dayDistance += targetMonthDistance - totalFinalDistance;
-            totalFinalDistance += targetMonthDistance - totalFinalDistance;
-        }
-    }
-
     console.log(`${date.toDateString()} -`, `${dayDistance} km ${trainingType}`);
 }
 
 console.log();
 console.log('Total KM planned: ', totalFinalDistance);
-console.log('Total KM requested: ', targetMonthDistance);
+
+if (!targetWeekDistance) {
+    console.log('Total KM requested: ', targetMonthDistance);
+}
