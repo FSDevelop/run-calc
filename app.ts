@@ -7,6 +7,7 @@ let restDays: WeekDay[] = [ WeekDay.Sun ];
 let targetKms = 300;
 
 // long run config
+let longRunEnabled = true;
 let longRunDay: WeekDay = WeekDay.Sat;
 let longRunRate: number = 23; // % of the week
 
@@ -25,7 +26,7 @@ for (let day = 1; day <= totalDaysOfMonth; day++) {
 // week calculations
 const weekTrainingDays = 7 - restDays.length;
 const weekDistance = targetKms / trainingDays * weekTrainingDays;
-const longRunDistance = Math.floor(weekDistance / 100 * longRunRate);
+const longRunDistance = longRunEnabled ? Math.floor(weekDistance / 100 * longRunRate) : 0;
 const defaultDayDistance = Math.floor((weekDistance - longRunDistance) / (weekTrainingDays - 1));
 
 // generate trainings
@@ -38,7 +39,7 @@ for (let day = 1; day <= totalDaysOfMonth; day++) {
         console.log('rest'); continue;
     }
 
-    else if (date.getDay() === longRunDay) {
+    else if (longRunEnabled && date.getDay() === longRunDay) {
         trainingType = 'long run';
         dayDistance = longRunDistance;
     }
