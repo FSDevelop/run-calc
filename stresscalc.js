@@ -1,3 +1,11 @@
+// (d) .distance = distance in meters for the day
+// .type = type of training
+// (i) .intensity = level of intensity of training (from 0.9 to 2.0) (ideally auto-calculated based on BPM, but TODO)
+// .injury = if for the given day you felt an injury
+// .injuryLevel = minor or major. If major, recovery is longer
+// (i2) .injuryStress = rate of exposure to reinjure (from 1.1 to 2.0)
+// (S) .stress = value autocalculated based on the previous factors, so: [ S = d * i * i2 ]
+
 const training = [
   { distance: 5000, type: 'easy', intensity: 0.9 },
   { distance: 10000, type: 'easy', intensity: 0.9 },
@@ -22,7 +30,7 @@ const training = [
 
 let calcInjuryStress = (i) => {
   if (training[i].injury || (i - 1 >= 0 && training[i - 1].injuryStress && training[i - 1].injuryStress !== 0)) {
-    return training[i - 1].injuryStress && training[i - 1].injuryStress > 0.2 ? Math.round((training[i - 1].injuryStress - 0.1) * 10) / 10 : 1.5;
+    return training[i - 1].injuryStress && training[i - 1].injuryStress > 1 ? Math.round((training[i - 1].injuryStress - 0.1) * 10) / 10 : training[i].injury ? 1.5 : null;
   }
 
   return null;
@@ -63,10 +71,10 @@ console.log(training);
 //   { distance: 8020, type: 'easy', intensity: 1, stress: 61, injuryStress: 1.3 },
 //   { distance: 4380, type: 'easy', intensity: 0.9, stress: 49, injuryStress: 1.2 },
 //   { distance: 11680, type: 'race', intensity: 2, stress: 61, injuryStress: 1.1 },
-//   { distance: 0, type: 'rest', intensity: 1, stress: 44, injuryStress: 1 },
-//   { distance: 9830, type: 'track', intensity: 1.6, stress: 46, injuryStress: 0.9 },
-//   { distance: 7880, type: 'easy', intensity: 1, stress: 39, injuryStress: 0.8 },
-//   { distance: 12500, type: 'track', intensity: 1.6, stress: 43, injuryStress: 0.7 },
-//   { distance: 0, type: 'rest', intensity: 1, stress: 31, injuryStress: 0.6 },
-//   { distance: 11800, type: 'easy', intensity: 1, stress: 28, injuryStress: 0.5 }
+//   { distance: 0, type: 'rest', intensity: 1, stress: 44, injuryStress: null },
+//   { distance: 9830, type: 'track', intensity: 1.6, stress: 46, injuryStress: null },
+//   { distance: 7880, type: 'easy', intensity: 1, stress: 39, injuryStress: null },
+//   { distance: 12500, type: 'track', intensity: 1.6, stress: 43, injuryStress: null },
+//   { distance: 0, type: 'rest', intensity: 1, stress: 31, injuryStress: null },
+//   { distance: 11800, type: 'easy', intensity: 1, stress: 28, injuryStress: null }
 // ]
