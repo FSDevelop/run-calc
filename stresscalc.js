@@ -47,3 +47,26 @@ for (let i = 10; i < training.length; i += 1) {
 }
 
 console.log(training);
+
+// OUTPUT:
+// [
+//   { distance: 5000, type: 'easy', intensity: 0.9, injuryStress: null },
+//   { distance: 10000, type: 'easy', intensity: 0.9, injuryStress: null },
+//   { distance: 0, type: 'rest', intensity: 1, injuryStress: null },
+//   { distance: 14160, type: 'track', intensity: 1.6, injuryStress: null },
+//   { distance: 12010, type: 'easy', intensity: 1, injuryStress: null },
+//   { distance: 12000, type: 'hills', intensity: 1.6, injuryStress: null },
+//   { distance: 19000, type: 'long', intensity: 0.9, injuryStress: null },
+//   { distance: 0, type: 'rest', intensity: 1, injuryStress: null },
+//   { distance: 0, type: 'rest', intensity: 1, injury: true, injuryStress: 1.5 },
+//   { distance: 7000, type: 'easy', intensity: 1, injuryStress: 1.4 },
+//   { distance: 8020, type: 'easy', intensity: 1, stress: 61, injuryStress: 1.3 },
+//   { distance: 4380, type: 'easy', intensity: 0.9, stress: 49, injuryStress: 1.2 },
+//   { distance: 11680, type: 'race', intensity: 2, stress: 61, injuryStress: 1.1 },
+//   { distance: 0, type: 'rest', intensity: 1, stress: 44, injuryStress: 1 },
+//   { distance: 9830, type: 'track', intensity: 1.6, stress: 46, injuryStress: 0.9 },
+//   { distance: 7880, type: 'easy', intensity: 1, stress: 39, injuryStress: 0.8 },
+//   { distance: 12500, type: 'track', intensity: 1.6, stress: 43, injuryStress: 0.7 },
+//   { distance: 0, type: 'rest', intensity: 1, stress: 31, injuryStress: 0.6 },
+//   { distance: 11800, type: 'easy', intensity: 1, stress: 28, injuryStress: 0.5 }
+// ]
