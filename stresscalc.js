@@ -4,7 +4,8 @@
 // .injury = if for the given day you felt an injury
 // .injuryLevel = minor or major. If major, recovery is longer
 // (i2) .injuryStress = rate of exposure to reinjure (from 1.1 to 2.0)
-// (S) .stress = value autocalculated based on the previous factors, so: [ S = d * i * i2 ]
+// (d2) daySignificance = rate of significance of a previous day compared to the current being calculated (from 0.9 to 0.1)
+// (S) .stress = value autocalculated based on the previous factors, so: Σ (d2 = 1, d2 -= 0.1) [ S = d * i * d2 * i2 ]
 
 const training = [
   { distance: 5000, type: 'easy', intensity: 0.9 },
