@@ -37,10 +37,9 @@ for (let i = 10; i < training.length; i += 1) {
   training[i].injuryStress = 0;
 
   for (let j = i; j >= i - 10; j -= 1) {
-  // currentDay = 1, yesterday = 0.9, before yesterday = 0.8 ... currentDay - 9 = 0.1
-  const daySignificance = Math.round((1 - (i - j) / 10) * 10) / 10;
-
-  training[i].stress += training[j].distance * training[j].intensity * daySignificance;
+    // currentDay = 1, yesterday = 0.9, before yesterday = 0.8 ... currentDay - 9 = 0.1
+    const daySignificance = Math.round((1 - (i - j) / 10) * 10) / 10;
+    training[i].stress += training[j].distance * training[j].intensity * daySignificance;
   }
 
   training[i].injuryStress = calcInjuryStress(i);
