@@ -31,24 +31,22 @@ const training = [
 
 let calcInjuryStress = (i) => {
   if (training[i].injury || (i - 1 >= 0 && training[i - 1].injuryStress && training[i - 1].injuryStress !== 0)) {
-    return training[i - 1].injuryStress && training[i - 1].injuryStress > 1 ? Math.round((training[i - 1].injuryStress - 0.1) * 10) / 10 : training[i].injury ? 1.5 : null;
+    return training[i - 1].injuryStress && training[i - 1].injuryStress > 1 ? Math.round((training[i - 1].injuryStress - 0.1) * 10) / 10 : training[i].injury ? 1.5 : 1;
   }
 
-  return null;
+  return 1;
 }
 
-for (let i = 0; i < 10; i += 1) {
-  training[i].injuryStress = calcInjuryStress(i);
-}
-
-for (let i = 10; i < training.length; i += 1) {
+for (let i = 0; i < training.length; i += 1) {
   training[i].stress = 0;
   training[i].injuryStress = 0;
 
   for (let j = i; j >= i - 10; j -= 1) {
-    // currentDay = 1, yesterday = 0.9, before yesterday = 0.8 ... currentDay - 9 = 0.1
-    const daySignificance = Math.round((1 - (i - j) / 10) * 10) / 10;
-    training[i].stress += training[j].distance * training[j].intensity * daySignificance;
+    if (training[j]) {
+      // currentDay = 1, yesterday = 0.9, before yesterday = 0.8 ... currentDay - 9 = 0.1
+      const daySignificance = Math.round((1 - (i - j) / 10) * 10) / 10;
+      training[i].stress += training[j].distance * training[j].intensity * daySignificance;
+    }
   }
 
   training[i].injuryStress = calcInjuryStress(i);
